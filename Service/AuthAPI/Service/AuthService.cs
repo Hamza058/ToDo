@@ -5,20 +5,38 @@ using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using System.Data;
 
 namespace AuthAPI.Service
 {
     public class AuthService : IAuthService
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _db;
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, AppDbContext db)
+        public AuthService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, AppDbContext db, IJwtTokenGenerator jwtTokenGenerator)
         {
             _db = db;
             _userManager = userManager;
-            _signInManager = signInManager;
+            _jwtTokenGenerator = jwtTokenGenerator;
+            _roleManager = roleManager;
+        }
+
+        public async Task<bool> AssignRole(string email, string roleName)
+        {
+            var user = _db.Users.FirstOrDefault(u => u.Email == email);
+            if (user != null)
+            {
+                if (!_roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
+                {
+                    _roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
+                }
+                await _userManager.AddToRoleAsync(user, roleName);
+                return true;
+            }
+            return false;
         }
 
         public async Task<LoginResponse> Login(LoginRequest loginRequest)
@@ -26,12 +44,14 @@ namespace AuthAPI.Service
             var user = _db.Users.FirstOrDefault(u => u.Email == loginRequest.Username);
             bool isValid = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
 
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = _jwtTokenGenerator.GenerateToken(user, roles);
             if (isValid)
             {
                 LoginResponse response = new LoginResponse()
                 {
                     User = user,
-                    Token = "asd"
+                    Token = token
                 };
                 return response;
             }

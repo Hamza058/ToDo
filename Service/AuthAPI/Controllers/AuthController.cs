@@ -1,5 +1,6 @@
 ﻿using AuthAPI.Models;
 using AuthAPI.Service.IService;
+using Azure;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,13 +12,13 @@ namespace AuthAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly SignInManager<User> _signInManager;
         private readonly IAuthService _authService;
+        protected ResponseDto _response;
 
-        public AuthController(SignInManager<User> signInManager, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
-            _signInManager = signInManager;
             _authService = authService;
+            _response = new ResponseDto();
         }
 
         [HttpPost("login")]
@@ -32,6 +33,19 @@ namespace AuthAPI.Controllers
         {
             var user = await _authService.Register(registration);
             return Ok(user);
+        }
+
+        [HttpPost("AssignRole")]
+        public async Task<IActionResult> AssignRole([FromBody] RegistrationRequest model)
+        {
+            var assignRoleSuccesful = await _authService.AssignRole(model.Email, model.Role.ToUpper());
+            if (!assignRoleSuccesful)
+            {
+                _response.IsSuccess = false;
+                _response.Message = "Error encountered";
+                return BadRequest(_response);
+            }
+            return Ok(_response);
         }
     }
 }

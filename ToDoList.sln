@@ -5,17 +5,17 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layer", "Layer", "{94C46490-0DA6-4C14-9A06-E7120BBB96C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityLayer", "Layer\EntityLayer\EntityLayer.csproj", "{79CEEF0A-8B25-469E-BE5C-913055067B46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityLayer", "Layer\EntityLayer\EntityLayer.csproj", "{79CEEF0A-8B25-469E-BE5C-913055067B46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "Layer\DataAccessLayer\DataAccessLayer.csproj", "{E8A29AE4-90A3-45A8-A018-3C1A4C60703A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "Layer\DataAccessLayer\DataAccessLayer.csproj", "{E8A29AE4-90A3-45A8-A018-3C1A4C60703A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{9D63D2AE-1D19-4DB7-9308-6BD8B337B190}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "FrontEnd\Web\Web.csproj", "{D3A8B6B0-D817-440F-9477-633CEFC91F94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "FrontEnd\Web\Web.csproj", "{D3A8B6B0-D817-440F-9477-633CEFC91F94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{42B2F670-0D30-451E-897C-E0987AF732D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthAPI", "Service\AuthAPI\AuthAPI.csproj", "{BADD2175-432E-4C4E-BFD7-D692A166D2D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthAPI", "Service\AuthAPI\AuthAPI.csproj", "{BADD2175-432E-4C4E-BFD7-D692A166D2D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
