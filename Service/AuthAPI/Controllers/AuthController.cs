@@ -23,8 +23,8 @@ namespace AuthAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
-            var user = await _signInManager.PasswordSignInAsync(loginRequest.Username, loginRequest.Password, false, true);
-            return Ok();
+            var response = await _authService.Login(loginRequest);
+            return Ok(response);
         }
 
         [HttpPost("register")]
