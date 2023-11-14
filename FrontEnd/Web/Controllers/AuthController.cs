@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Web.Models;
 using Web.Service.IService;
+using System.Text;
 
 namespace Web.Controllers
 {
@@ -38,7 +39,7 @@ namespace Web.Controllers
                 await SignInUser(loginResponseDto);
                 _tokenProvider.SetToken(loginResponseDto.Token);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Privacy", "Home");
             }
             else
             {

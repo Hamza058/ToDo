@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{42B2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthAPI", "Service\AuthAPI\AuthAPI.csproj", "{BADD2175-432E-4C4E-BFD7-D692A166D2D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "Layer\BusinessLayer\BusinessLayer.csproj", "{8655DED5-A3BC-416C-A2E6-615F1FB48C24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{BADD2175-432E-4C4E-BFD7-D692A166D2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BADD2175-432E-4C4E-BFD7-D692A166D2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BADD2175-432E-4C4E-BFD7-D692A166D2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8655DED5-A3BC-416C-A2E6-615F1FB48C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8655DED5-A3BC-416C-A2E6-615F1FB48C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8655DED5-A3BC-416C-A2E6-615F1FB48C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8655DED5-A3BC-416C-A2E6-615F1FB48C24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{E8A29AE4-90A3-45A8-A018-3C1A4C60703A} = {94C46490-0DA6-4C14-9A06-E7120BBB96C1}
 		{D3A8B6B0-D817-440F-9477-633CEFC91F94} = {9D63D2AE-1D19-4DB7-9308-6BD8B337B190}
 		{BADD2175-432E-4C4E-BFD7-D692A166D2D9} = {42B2F670-0D30-451E-897C-E0987AF732D0}
+		{8655DED5-A3BC-416C-A2E6-615F1FB48C24} = {94C46490-0DA6-4C14-9A06-E7120BBB96C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E602BF3-75AC-4C94-BF6A-90DF409616F0}

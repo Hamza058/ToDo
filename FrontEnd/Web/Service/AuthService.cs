@@ -7,12 +7,26 @@ namespace Web.Service
     public class AuthService : IAuthService
     {
         private readonly IBaseService _baseService;
+        private readonly GateWay _gateWay;
+
+        //public AuthService(IBaseService baseService, GateWay gateWay)
+        //{
+        //    _baseService = baseService;
+        //    _gateWay = gateWay;
+        //}
         public AuthService(IBaseService baseService)
         {
             _baseService = baseService;
         }
         public async Task<ResponseDto?> LoginAsync(LoginRequest loginRequestDto)
         {
+            //return await _gateWay.SendAsync(new RequestDto()
+            //{
+            //    ApiType = SD.ApiType.POST,
+            //    Data = loginRequestDto,
+            //    Url = SD.AuthAPIBase + "/api/auth/login"
+            //});
+
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.POST,
