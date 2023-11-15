@@ -1,0 +1,15 @@
+﻿@using EntityLayer.Concrete
+@model List<Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@foreach (var item in Model)
+{
+    <p>@item.ProductId</p><br />
+    <p>@item.ProductName</p><br />
+    <p>@item.Price</p><br />
+}
+

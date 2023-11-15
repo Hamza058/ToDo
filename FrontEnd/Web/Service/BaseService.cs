@@ -75,13 +75,7 @@ namespace Web.Service
                         return new() { IsSuccess = false, Message = "Internal Server Error" };
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                        
-                        JObject inputObject = JObject.Parse(apiContent);
-                        JObject resultObject = new JObject();
-                        resultObject["result"] = inputObject;
-                        string resultJson = resultObject.ToString(Formatting.None);
-
-                        var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(resultJson);
+                        var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
                         return apiResponseDto;
                 }
             }

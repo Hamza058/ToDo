@@ -24,8 +24,8 @@ namespace AuthAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            var response = await _authService.Login(loginRequest);
-            return Ok(response);
+            _response.Result = await _authService.Login(loginRequest);
+            return Ok(_response);
         }
 
         [HttpPost("register")]
