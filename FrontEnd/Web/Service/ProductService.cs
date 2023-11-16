@@ -22,6 +22,15 @@ namespace Web.Service
             });
         }
 
+        public async Task<ResponseDto?> DeleteProductAsync(int id)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = SD.ProductAPIBase + "/api/Product/deleteProduct/" + id
+            });
+        }
+
         public async Task<ResponseDto?> GetProductsAsync()
         {
             return await _baseService.SendAsync(new RequestDto()

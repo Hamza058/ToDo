@@ -7,5 +7,6 @@ namespace Web.Service.IService
     {
         Task<ResponseDto?> GetProductsAsync();
         Task<ResponseDto?> CreateProductAsync(Product product);
+        Task<ResponseDto?> DeleteProductAsync(int id);
     }
 }

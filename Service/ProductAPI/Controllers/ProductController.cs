@@ -20,7 +20,8 @@ namespace ProductAPI.Controllers
             _response = new ResponseDto();
         }
 
-        [HttpGet("getList")]
+        [Route("getList")]
+        [HttpGet]
         public ResponseDto GetList()
         {
             try
@@ -35,20 +36,38 @@ namespace ProductAPI.Controllers
             
             return _response;
         }
-
-        [HttpPost("addProduct")]
+        [Route("addProduct")]
+        [HttpPost]
         public ResponseDto AddProduct([FromBody] Product product)
         {
             pm.TAdd(product);
-
-            var response = new ResponseDto()
-            {
-                Result = product,
-                IsSuccess = true,
-                Message = "Success"
-            };
-            
-            return response;
+			try
+			{
+				_response.Result = product;
+				_response.Message = "Success";
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.Message = ex.Message;
+			}
+            return _response;
         }
-    }
+
+        [Route("deleteProduct/{id}")]
+        [HttpDelete]
+		public ResponseDto DeleteProduct(int id)
+		{
+            try
+            {
+				pm.TDelete(pm.TGetById(id));
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.Message = ex.Message;
+			}
+			return _response;
+		}
+	}
 }
