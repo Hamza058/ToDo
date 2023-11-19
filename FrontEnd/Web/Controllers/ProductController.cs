@@ -1,4 +1,6 @@
 ﻿using Azure;
+using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -12,6 +14,8 @@ namespace Web.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _service;
+        CategoryManager cm = new CategoryManager(new EFCategoryDal());
+
         public ProductController(IProductService service)
         {
             _service = service;
@@ -44,5 +48,29 @@ namespace Web.Controllers
 
 			return NotFound();
 		}
-	}
+        [HttpGet]
+        public async Task<IActionResult> ProductCreate()
+        {
+            ViewBag.category = cm.TGetList();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProductCreate(Product product)
+        {
+            ResponseDto? response = await _service.CreateProductAsync(product);
+
+            if (response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Product created successfully";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
+
+            return View(product);
+        }
+    }
 }
