@@ -1,5 +1,4 @@
-﻿@using EntityLayer.Concrete
-@model List<Product>
+﻿@model List<ProductDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -46,7 +45,7 @@
 							@item.ProductName
 						</td>
 						<td>
-							@item.CategoryId
+							@item.CategoryName
 						</td>
 						<td>
 							@((item.Price).ToString("c"))

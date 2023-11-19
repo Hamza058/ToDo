@@ -15,6 +15,7 @@ namespace Web.Controllers
     {
         private readonly IProductService _service;
         CategoryManager cm = new CategoryManager(new EFCategoryDal());
+        ProductManager pm = new ProductManager(new EFProductDal());
 
         public ProductController(IProductService service)
         {
@@ -22,11 +23,11 @@ namespace Web.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<Product>? list = new();
+            List<ProductDto>? list = new();
             var response = await _service.GetProductsAsync();
             if (response != null && response.IsSuccess)
             {
-                list = JsonConvert.DeserializeObject<List<Product>>(Convert.ToString(response.Result));
+                list = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
             }
             return View(list);
         }
