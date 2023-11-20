@@ -32,6 +32,16 @@ namespace Web.Service
             });
         }
 
+        public async Task<ResponseDto?> EditCategoryAsync(Category category)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = category,
+                Url = SD.CategoryAPIBase + "/api/Category/editCategory"
+            });
+        }
+
         public async Task<ResponseDto?> GetCategoriesAsync()
         {
             return await _baseService.SendAsync(new RequestDto()

@@ -41,7 +41,6 @@ namespace CategoryAPI.Controllers
             try
             {
                 cm.TAdd(category);
-
                 _response.Result = category;
             }
             catch (Exception ex)
@@ -52,7 +51,25 @@ namespace CategoryAPI.Controllers
             }
             return _response;
         }
+        [Route("editCategory")]
+        [HttpPut]
+        public ResponseDto EditCategory(Category category)
+        {
+            try
+            {
+                var value=cm.TGetById(category.CategoryId);
+                value.CategoryName = category.CategoryName;
+                cm.TUpdate(value);
+                _response.Result = category;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
 
+            }
+            return _response;
+        }
         [Route("deleteCategory/{id}")]
         [HttpDelete]
 		public ResponseDto DeleteCategory(int id)

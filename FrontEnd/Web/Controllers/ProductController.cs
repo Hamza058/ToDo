@@ -75,5 +75,29 @@ namespace Web.Controllers
 
             return View(product);
         }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ProductEdit(int id)
+        {
+            return View(cm.TGetById(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProductEdit(Product product)
+        {
+            ResponseDto? response = await _service.CreateProductAsync(product);
+
+            if (response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Product created successfully";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
+
+            return View(product);
+        }
     }
 }

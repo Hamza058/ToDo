@@ -1,0 +1,39 @@
+﻿@using EntityLayer.Concrete;
+@model Category
+
+@{
+    ViewData["Title"] = "CategoryCreate";
+}
+
+<form asp-action="CategoryEdit" method="post">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-center">Edit Category</h1>
+
+        <hr />
+        <div class="row">
+            <input type="hidden" asp-for="CategoryId" value="@Model.CategoryId" />
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Category Name</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CategoryName" class="form-control" value="@Model.CategoryName"/>
+            </div>
+            <div class="col-5 offset-2">
+                <a asp-action="Index" class="btn-primary btn form-control ">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Save" class="btn btn-success form-control" />
+            </div>
+
+        </div>
+
+        <div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

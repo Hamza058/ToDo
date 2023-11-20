@@ -7,6 +7,7 @@ namespace Web.Service.IService
     {
         Task<ResponseDto?> GetCategoriesAsync();
         Task<ResponseDto?> CreateCategoryAsync(Category category);
+        Task<ResponseDto?> EditCategoryAsync(Category category);
         Task<ResponseDto?> DeleteCategoryAsync(int id);
     }
 }

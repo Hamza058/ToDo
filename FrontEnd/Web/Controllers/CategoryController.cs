@@ -71,5 +71,29 @@ namespace Web.Controllers
 
             return View(category);
         }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> CategoryEdit(int id)
+        {
+            return View(cm.TGetById(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CategoryEdit(Category category)
+        {
+            ResponseDto? response = await _service.EditCategoryAsync(category);
+
+            if (response != null && response.IsSuccess)
+            {
+                TempData["success"] = "Category created successfully";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
+
+            return View(category);
+        }
     }
 }
