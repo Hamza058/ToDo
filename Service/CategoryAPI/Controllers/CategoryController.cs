@@ -12,41 +12,62 @@ namespace CategoryAPI.Controllers
     public class CategoryController : ControllerBase
     {
         CategoryManager cm = new CategoryManager(new EFCategoryDal());
+        private readonly ResponseDto _response;
 
-        [HttpGet("getList")]
-        public IActionResult GetList()
+        public CategoryController()
         {
-            return Ok(cm.TGetList());
+            _response = new ResponseDto();
         }
+        [Route("getList")]
+        [HttpGet]
+        public ResponseDto GetList()
+        {
+            try
+            {
+                _response.Result = cm.TGetList();
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
 
-        [HttpPost("addProduct")]
-        public async Task<IActionResult> AddProduct(Category category)
+            }
+            return _response;
+        }
+        [Route("addCategory")]
+        [HttpPost]
+        public ResponseDto AddCategory(Category category)
         {
             try
             {
                 cm.TAdd(category);
 
-                var response = new ResponseDto()
-                {
-                    Result = category,
-                    IsSuccess = true,
-                    Message = "Success"
-                };
-
-                return Ok(response);
+                _response.Result = category;
             }
-            catch
+            catch (Exception ex)
             {
-                var response = new ResponseDto()
-                {
-                    Result = null,
-                    IsSuccess = false,
-                    Message = "Faild"
-                };
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
 
-                return Ok(response);
             }
-            
+            return _response;
         }
-    }
+
+        [Route("deleteCategory/{id}")]
+        [HttpDelete]
+		public ResponseDto DeleteCategory(int id)
+		{
+			try
+			{
+				cm.TDelete(cm.TGetById(id));
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.Message = ex.Message;
+
+			}
+			return _response;
+		}
+	}
 }
