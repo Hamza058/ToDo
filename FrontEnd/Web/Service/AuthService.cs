@@ -18,6 +18,17 @@ namespace Web.Service
         {
             _baseService = baseService;
         }
+
+        public async Task<ResponseDto?> AssignRoleAsync(RegistrationRequest obj)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = obj,
+                Url = SD.AuthAPIBase + "/api/auth/AssignRole"
+            });
+        }
+
         public async Task<ResponseDto?> LoginAsync(LoginRequest loginRequestDto)
         {
             //return await _gateWay.SendAsync(new RequestDto()

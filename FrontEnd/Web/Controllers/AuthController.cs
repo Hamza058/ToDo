@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Web.Models;
 using Web.Service.IService;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Web.Utility;
 
 namespace Web.Controllers
 {
@@ -45,6 +47,54 @@ namespace Web.Controllers
             {
                 return View(obj);
             }
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            var roleList = new List<SelectListItem>()
+            {
+                new SelectListItem{Text=SD.RoleAdmin, Value=SD.RoleAdmin},
+                new SelectListItem{Text=SD.RoleCustomer, Value=SD.RoleCustomer},
+            };
+
+            ViewBag.RoleList = roleList;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegistrationRequest obj)
+        {
+            ResponseDto result = await _authService.RegisterAsync(obj);
+            ResponseDto assignRole;
+
+            if (result != null && result.IsSuccess)
+            {
+                if (string.IsNullOrEmpty(obj.Role))
+                {
+                    obj.Role = SD.RoleCustomer;
+                }
+                assignRole = await _authService.AssignRoleAsync(obj);
+
+                if (assignRole != null && assignRole.IsSuccess)
+                {
+                    TempData["success"] = "Registration Successful";
+                    return RedirectToAction(nameof(Login));
+                }
+            }
+            else
+            {
+                TempData["error"] = result.Message;
+            }
+
+            var roleList = new List<SelectListItem>()
+            {
+                new SelectListItem{Text=SD.RoleAdmin, Value=SD.RoleAdmin},
+                new SelectListItem{Text=SD.RoleCustomer, Value=SD.RoleCustomer},
+            };
+
+            ViewBag.RoleList = roleList;
+            return View(obj);
         }
 
         [HttpGet]
