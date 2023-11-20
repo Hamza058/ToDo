@@ -39,12 +39,20 @@ namespace Web.Controllers
                 await SignInUser(loginResponseDto);
                 _tokenProvider.SetToken(loginResponseDto.Token);
 
-                return RedirectToAction("Privacy", "Home");
+                return RedirectToAction("Index", "Product");
             }
             else
             {
                 return View(obj);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            _tokenProvider.ClearToken();
+            return RedirectToAction("Index", "Home");
         }
 
         private async Task SignInUser(LoginResponse model)

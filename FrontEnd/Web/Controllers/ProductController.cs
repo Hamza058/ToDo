@@ -2,6 +2,7 @@
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
@@ -31,7 +32,7 @@ namespace Web.Controllers
             }
             return View(list);
         }
-
+        [Authorize]
 		public async Task<IActionResult> ProductDelete(int id)
 		{
 			ResponseDto? response = await _service.DeleteProductAsync(id);
@@ -50,6 +51,7 @@ namespace Web.Controllers
 			return NotFound();
 		}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ProductCreate()
         {
             ViewBag.category = cm.TGetList();
