@@ -50,15 +50,36 @@ namespace ProductAPI.Controllers
             
             return _response;
         }
+
         [Route("addProduct")]
         [HttpPost]
         public ResponseDto AddProduct([FromBody] Product product)
         {
-            pm.TAdd(product);
             try
             {
+                pm.TAdd(product);
                 _response.Result = product;
-                _response.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+        [Route("editProduct")]
+        [HttpPut]
+        public ResponseDto EditProduct([FromBody] Product product)
+        {
+            try
+            {
+                var value = pm.TGetById(product.ProductId);
+                value.ProductName = product.ProductName;
+                value.Price = product.Price;
+                value.CategoryId = product.CategoryId;
+                pm.TUpdate(value);
+                _response.Result = product;
             }
             catch (Exception ex)
             {

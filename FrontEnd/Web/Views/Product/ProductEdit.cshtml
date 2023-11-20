@@ -1,0 +1,52 @@
+﻿@using EntityLayer.Concrete;
+@model Product
+
+<form asp-action="ProductEdit">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-center">Edit Product</h1>
+
+        <hr />
+        <div class="row">
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Product Name</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="ProductName" class="form-control" value="@Model.ProductName" />
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Price</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Price" class="form-control" value="@Model.Price" />
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Category</label>
+            </div>
+            <div class="col-10 pb-3">
+                <select asp-for="CategoryId" class="form-select mb-2">
+                    <option value="none" selected disabled hidden>@Model.Category.CategoryName</option>
+                    @foreach (var item in ViewBag.category as List<Category>)
+                    {
+                        <option value="@item.CategoryId">@item.CategoryName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-5 offset-2">
+                <a asp-action="Index" class="btn-primary btn form-control ">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Save" class="btn btn-success form-control" />
+            </div>
+
+        </div>
+
+        <div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

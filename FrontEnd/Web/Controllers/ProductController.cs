@@ -79,7 +79,8 @@ namespace Web.Controllers
         [Authorize]
         public async Task<IActionResult> ProductEdit(int id)
         {
-            return View(cm.TGetById(id));
+            ViewBag.category = cm.TGetList();
+            return View(pm.TGetById(id));
         }
 
         [HttpPost]
@@ -89,7 +90,7 @@ namespace Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                TempData["success"] = "Product created successfully";
+                TempData["success"] = "Product updated successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
